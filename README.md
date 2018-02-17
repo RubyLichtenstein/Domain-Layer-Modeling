@@ -1,4 +1,4 @@
-# Domain Design 
+# Domain Modeling
 Domain layer design with RxJava Kotlin and Kategory.
 
 ## Kotlin project demonstrate modeling use cases with Rx and error system with Kategory
@@ -77,6 +77,8 @@ Problems
 2. infinity stream stop stream only if the stream is broken 
 3. Pattern matching for error with seald classse 
 4. Separation between expected and unexpected error
+
+Sealed classes for branching errors
 
 Either<Error, Data>
 ```kotlin
