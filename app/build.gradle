@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt' //optional
+apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optional
+
+
+//apply plugin: 'org.junit.platform.gradle.plugin'
+
+//junitPlatform {
+//    filters {
+//        engines {
+//            include 'spek'
+//        }
+//    }
+//}
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.rl98880.cleanarchdomain"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+
+    compile 'io.arrow-kt:arrow-core:0.6.1'
+    compile 'io.arrow-kt:arrow-typeclasses:0.6.1'
+    compile 'io.arrow-kt:arrow-instances:0.6.1'
+    compile 'io.arrow-kt:arrow-data:0.6.1'
+    compile 'io.arrow-kt:arrow-syntax:0.6.1'
+    kapt    'io.arrow-kt:arrow-annotations-processor:0.6.1'
+
+    compile 'io.arrow-kt:arrow-free:0.6.1' //optional
+    compile 'io.arrow-kt:arrow-mtl:0.6.1' //optional
+    compile 'io.arrow-kt:arrow-effects:0.6.1' //optional
+    compile 'io.arrow-kt:arrow-effects-rx2:0.6.1' //optional
+    compile 'io.arrow-kt:arrow-effects-kotlinx-coroutines:0.6.1' //optional
+    compile 'io.arrow-kt:arrow-optics:0.6.1' //optional
+
+    testCompile "com.nhaarman:mockito-kotlin:1.5.0"
+    testCompile 'com.rubylichtenstein:rxtest:1.0.5'
+    testCompile "org.mockito:mockito-core:2.15.0"
+
+//    testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+//    testCompile ('org.jetbrains.spek:spek-api:1.1.5') {
+//        exclude group: 'org.jetbrains.kotlin'
+//    }
+//    testRuntime ('org.jetbrains.spek:spek-junit-platform-engine:1.1.5') {
+//        exclude group: 'org.junit.platform'
+//        exclude group: 'org.jetbrains.kotlin'
+//    }
+}
