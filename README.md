@@ -1,18 +1,19 @@
 # Domain Design 
 Domain layer design with RxJava Kotlin and Kategory.
 
-## The project demonstrate modeling use cases with Rx and error system with Kategory
+## Kotlin project demonstrate modeling use cases with Rx and error system with Kategory
 
 #### Why Domain Driven Design - Clean Architecture?
 
-* Keeping the code clean with SRP
-* Full isolation between the domain, data, presentation.
-* Framework with inversion of control plug and play 
+* Keeping the code clean with Single Responsibly Principle
+* Isolation between the layers domain, data and presentation.
+* Independent Framework - inversion of control - plug and play
 * Ease change implementation of services
 * Share code between platform - platform independent
-* Fest tests pure java - no framework related
+* Fest tests -  pure java, no framework related
 
-#### Why use case? 
+#### Why Use Case?
+
 1. Better understand our domain
 2. Move logic to domain layer, presentation layer should have minimum logic.
 3. Concise language and terms between teams platforms.
