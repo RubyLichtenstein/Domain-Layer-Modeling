@@ -1,9 +1,20 @@
-# Domain Modeling
-Domain layer design with RxJava Kotlin and Kategory.
+# Domain layer design with RxJava Kotlin and Kategory.
 
-## Kotlin project demonstrate modeling use cases with Rx and error system with Kategory
+I'ev desided to make this project becouse of 2 reasonse 
+
+1. Show complete abstraction to domain use cases with all the rx reacitve type 
+2. Show better error system in the rx stream and to use of power kotlin pattern matching to handle error states 
+
 
 #### Why Domain Driven Design - Clean Architecture?
+
+Its greate posts and project out theare  
+
+1. 
+2. 
+
+I'am not foucusing of clean arch 
+But a few points 
 
 * Keeping the code clean with Single Responsibly Principle
 * Isolation between the layers domain, data and presentation.
@@ -11,22 +22,10 @@ Domain layer design with RxJava Kotlin and Kategory.
 * Ease change implementation of services
 * Share code between platform - platform independent
 * Fest tests -  pure java, no framework related
-
-#### Why Use Case?
-
-1. Better understand our domain
-2. Move logic to domain layer, presentation layer should have minimum logic.
-3. Concise language and terms between teams platforms.
-
-#### Why Rx
-
+ 
+ 
 #### RxUseCase
-
-1. Rx benefits (operators etc..)
-1. Solid definition of use cases
-2. Cross platform api with
-
-Use case have data error, and may have parameter
+Use case types
 
 * Observable - Without/ParamUseCase
 * Single - Without/ParamUseCase
@@ -69,10 +68,10 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 
 ...
 
-Way Error system? 
 #### RxError 
 
-Problems 
+What bad in error system 
+
 1. Exceptions not passing threads, havey operation
 2. infinity stream stop stream only if the stream is broken 
 3. Pattern matching for error with seald classse 
