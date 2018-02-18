@@ -10,7 +10,7 @@ Domain layer design with RxJava Kotlin and Kategory.
 * Independent Framework - inversion of control - plug and play
 * Ease change implementation of services
 * Share code between platform - platform independent
-* Fest tests -  pure java, no framework related
+* Fest tests - pure java, no framework related
 
 #### Why Use Case?
 
