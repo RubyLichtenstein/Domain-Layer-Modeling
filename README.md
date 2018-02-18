@@ -2,7 +2,7 @@
 
 The project focus on 2 aspects of Domain layer architecture
    
-1. Domain use cases modeling with RxJava 
+1. Domain use cases modeling with RxJava
 2. Enhanced error system for rx stream with the power of kotlin pattern matching to handle error states 
 
 
@@ -90,6 +90,51 @@ The regular on error is for unexpected errors only
  
 Some handy 
  
+Example
+```kotlin
+class SomeUseCase{
+data class Param(val hello: String)
+data class Data(val world: String)
+sealed class Error {
+        object ErrorA : Error()
+        object ErrorB : Error()
+    }
+}
+
+class SomePresenter(val someUseCase: SomeUseCase){
+    fun some() {
+        someUseCase
+                .execute(SomeUseCase.Param("Hello World!"))
+                .subscribe(object : ObservableEitherObserver<SomeUseCase.Error, SomeUseCase.Data> {
+                                           override fun onComplete() {
+                           
+                                           }
+                           
+                                           override fun onError(e: Throwable) {
+                           
+                                           }
+                           
+                                           override fun onNextSuccess(data: SomeUseCase.Data) {
+                                               showData(data)
+                                           }
+                           
+                                           override fun onNextFailed(error: SomeUseCase.Error) {
+                                               val error = when (error) {
+                                                   SomeUseCase.ErrorA  -> onErrorA() 
+                                                   SomeUseCase.ErrorB  -> onErrorB() 
+                                               }
+                                           }
+                           
+                                           override fun onSubscribe(d: Disposable) {
+                           
+                                           }
+                                       })
+}
+       
+}
+
+
+```
 ```kotlin
 typealias Success<A, B> = Either.Right<A, B>
 
