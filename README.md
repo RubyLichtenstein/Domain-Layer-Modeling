@@ -91,6 +91,8 @@ The regular on error is for unexpected errors only
 Some handy 
  
 Example
+
+###Creating use case  
 ```kotlin
 class SomeUseCase :
     ObservableWithParamUseCase<Either<SomeUseCase.Error, SomeUseCase.Data>, SomeUseCase.Param>(
@@ -109,7 +111,10 @@ class SomeUseCase :
         object ErrorB : Error()
     }
 }
+```
 
+###Consuming use case 
+```kotlin
 class SomePresenter(val someUseCase: SomeUseCase) {
     fun some() {
         someUseCase
@@ -132,16 +137,14 @@ class SomePresenter(val someUseCase: SomeUseCase) {
     private fun showData(data: SomeUseCase.Data): Nothing = TODO()
     private fun onUnexpectedError(e: Throwable): Nothing = TODO()
 }
-
-
 ```
+#### Either Stream
 ```kotlin
 typealias Success<A, B> = Either.Right<A, B>
 
 typealias Failed<A, B> = Either.Left<A, B>
 ```
 
-#### Either Observer
 ```kotlin
 interface EitherObserver<in L, in R> {
     fun onNextSuccess(r: R)

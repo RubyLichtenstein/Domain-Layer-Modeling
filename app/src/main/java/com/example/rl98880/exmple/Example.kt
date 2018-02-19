@@ -5,6 +5,7 @@ import com.example.rl98880.cleanarchdomain.rxerror.ObservableEitherObserver
 import com.example.rl98880.cleanarchdomain.rxusecase.ObservableWithParamUseCase
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by rl98880 on 19/02/2018.
@@ -12,7 +13,7 @@ import io.reactivex.disposables.Disposable
 
 class SomeUseCase :
     ObservableWithParamUseCase<Either<SomeUseCase.Error, SomeUseCase.Data>, SomeUseCase.Param>(
-        threadExecutor = TODO(),
+        threadExecutor = Schedulers.io(),
         postExecutionThread = TODO()
     ) {
 
