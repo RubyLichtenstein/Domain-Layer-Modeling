@@ -1,14 +1,9 @@
 # Domain layer design with RxJava, Kotlin and Kategory.
 
-The project focus on 2 aspects of domain layer architecture
-   
-1. Domain use cases modeling with RxJava
-2. Enhanced error system for rx stream with the power of kotlin pattern matching to handle error states 
-
 
 #### Why Domain Driven Design - Clean Architecture?
 
-The project is not about the befits of clean architecture, its about what kotlin and RxJava 
+The project is not about clean architecture, its about what kotlin and RxJava 
 can give us in context of modeling use cases and error system  
 
 If you not familiar with clean architecture I recommend to start 
@@ -19,22 +14,23 @@ with this great posts,
 
 Few points about the befits of CleanArchitecture (focus on domain layer)
 
-* Keeping the code clean with Single Responsibly Principle
-* Isolation between the layers domain, data and presentation.
-* Domain should be independent of framework (inversion of control
-* Share code between platform
-* Fest tests - pure java/kotlin, no framework related
-
+* Keeping the code clean with single responsibly principle.
+* Isolation between layers: domain, data and presentation.
+* Domain should be independent of framework with inversion of control principle.
+* Since the domain is independent of framework it easy to share code between platform
+and allow tests run faster 
 #### RxUseCase
-Use case type is one of reactive types and may have parameter
+Use case type is one of the reactive types and may have parameter.
   
+##### Rx Reactive types   
 * Observable  
 * Single  
 * Maybe  
 * Completable  
 * Flowable
 
-#### With parameter
+#### Examples 
+##### Use case with parameter
 
 T - the reactive type 
 
@@ -49,7 +45,7 @@ interface UseCaseWithParam<out T, in P> {
 }
 ```
 
-#### Without parameter
+##### Use case without parameter
 ```kotlin
 interface UseCaseWithoutParam<out T> {
 
@@ -79,19 +75,18 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 
 #### RxError 
 
-How I want to improve Rx error system 
+What are the improvement RxError bring to Rx error system 
 
 1. Separation between expected and unexpected errors
 2. Pattern matching for error state with kotlin sealed classes.
-3. I want the stream to stop only on unexpected and fatal errors, not in expected error    
+3. Keep the stream alive in expected (and not fatal) errors, stop  the stream only on unexpected and fatal errors.  
 
-The solution is Either stream Observable<Either<Error, Data>>
-and Error is sealed class 
-The regular on error is for unexpected errors only 
- 
-Some handy 
- 
-##Example
+
+RxError implementation is with (Kategory) Either stream Observable<Either<Error, Data>>
+while Error is sealed class 
+The regular Rx onError is for unexpected errors only 
+  
+##Examples
 
 ###Creating use case  
 ```kotlin
