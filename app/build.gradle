@@ -5,6 +5,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt' //optional
 apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optional
+//apply plugin: "io.gitlab.arturbosch.detekt-cli"
+//buildscript {
+//    dependencies {
+//      classpath "gradle.plugin.io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.0.RC6-3"
+//
+//    }
+//}
 
 
 //apply plugin: 'org.junit.platform.gradle.plugin'
@@ -16,6 +23,29 @@ apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optiona
 //        }
 //    }
 //}
+//plugins {
+//    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC4-6"
+//}
+
+detekt {
+    profile = 'main'
+
+    profile('main') {
+        input = "$projectDir/src/main/java"
+        config = "$projectDir/detekt.yml"
+        filters = '.*test.*,.*/resources/.*,.*/tmp/.*'
+        output = "$projectDir/build/reports/detekt"
+    }
+
+    idea {
+        path = "$rootDir/.idea"
+        codeStyleScheme = "$rootDir/.idea/codeStyleSettings.xml"
+        inspectionsProfile = "$rootDir/.idea/inspectionProfiles/Squanchy.xml"
+        report = "$projectDir/build/reports/detekt-idea"
+        mask = "*.kt,"
+    }
+}
+
 
 android {
     compileSdkVersion 26
@@ -34,7 +64,9 @@ android {
         }
     }
 }
-
+//plugins {
+//    id 'io.gitlab.arturbosch.detekt' version '1.0.0.RC6-3'
+//}
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
