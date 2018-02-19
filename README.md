@@ -92,45 +92,45 @@ Some handy
  
 Example
 ```kotlin
-class SomeUseCase{
-data class Param(val hello: String)
-data class Data(val world: String)
-sealed class Error {
+class SomeUseCase :
+    ObservableWithParamUseCase<Either<SomeUseCase.Error, SomeUseCase.Data>, SomeUseCase.Param>(
+        threadExecutor = TODO(),
+        postExecutionThread = TODO()
+    ) {
+
+    override fun build(param: Param): Observable<Either<Error, Data>> {
+        TODO()
+    }
+
+    data class Param(val hello: String)
+    data class Data(val world: String)
+    sealed class Error {
         object ErrorA : Error()
         object ErrorB : Error()
     }
 }
 
-class SomePresenter(val someUseCase: SomeUseCase){
+class SomePresenter(val someUseCase: SomeUseCase) {
     fun some() {
         someUseCase
-                .execute(SomeUseCase.Param("Hello World!"))
-                .subscribe(object : ObservableEitherObserver<SomeUseCase.Error, SomeUseCase.Data> {
-                                           override fun onComplete() {
-                           
-                                           }
-                           
-                                           override fun onError(e: Throwable) {
-                           
-                                           }
-                           
-                                           override fun onNextSuccess(data: SomeUseCase.Data) {
-                                               showData(data)
-                                           }
-                           
-                                           override fun onNextFailed(error: SomeUseCase.Error) {
-                                               val error = when (error) {
-                                                   SomeUseCase.ErrorA  -> onErrorA() 
-                                                   SomeUseCase.ErrorB  -> onErrorB() 
-                                               }
-                                           }
-                           
-                                           override fun onSubscribe(d: Disposable) {
-                           
-                                           }
-                                       })
-}
-       
+            .execute(SomeUseCase.Param("Hello World!"))
+            .subscribe(object : ObservableEitherObserver<SomeUseCase.Error, SomeUseCase.Data> {
+                override fun onSubscribe(d: Disposable) = TODO()
+                override fun onComplete() = TODO()
+                override fun onError(e: Throwable) = onUnexpectedError(e)
+                override fun onNextSuccess(r: SomeUseCase.Data) = showData(r)
+                override fun onNextFailed(l: SomeUseCase.Error) = onFailed(
+                    when (l) {
+                        SomeUseCase.Error.ErrorA -> TODO()
+                        SomeUseCase.Error.ErrorB -> TODO()
+                    }
+                )
+            })
+    }
+
+    private fun onFailed(any: Any): Nothing = TODO()
+    private fun showData(data: SomeUseCase.Data): Nothing = TODO()
+    private fun onUnexpectedError(e: Throwable): Nothing = TODO()
 }
 
 
