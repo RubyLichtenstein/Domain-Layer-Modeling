@@ -90,9 +90,9 @@ RxError implementation is with (Kategory) Either stream Observable<Either<Error,
 while Error is sealed class 
 The regular Rx onError is for unexpected errors only 
   
-##Examples
+## Examples
 
-###Creating use case  
+### Creating use case  
 ```kotlin
 class SomeUseCase :
     ObservableWithParamUseCase<Either<SomeUseCase.Error, SomeUseCase.Data>, SomeUseCase.Param>(
@@ -113,7 +113,7 @@ class SomeUseCase :
 }
 ```
 
-###Consuming use case 
+### Consuming use case 
 ```kotlin
 class SomePresenter(val someUseCase: SomeUseCase) {
     fun some() {
