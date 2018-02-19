@@ -1,6 +1,6 @@
 # Domain layer design with RxJava, Kotlin and Kategory.
 
-The project focus on 2 aspects of Domain layer architecture
+The project focus on 2 aspects of domain layer architecture
    
 1. Domain use cases modeling with RxJava
 2. Enhanced error system for rx stream with the power of kotlin pattern matching to handle error states 
@@ -8,28 +8,31 @@ The project focus on 2 aspects of Domain layer architecture
 
 #### Why Domain Driven Design - Clean Architecture?
 
-Its great posts and project out there  
+The project is not about the befits of clean architecture, its about what kotlin and RxJava 
+can give us in context of modeling use cases and error system  
+
+If you not familiar with clean architecture I recommend to start 
+with this great posts, 
 
 1. https://github.com/android10/Android-CleanArchitecture
 2. http://five.agency/android-architecture-part-4-applying-clean-architecture-on-android-hands-on/
 
-But a few points about the befits of CleanArchitecture with focus on domain layer 
+Few points about the befits of CleanArchitecture (focus on domain layer)
 
 * Keeping the code clean with Single Responsibly Principle
 * Isolation between the layers domain, data and presentation.
-* Independent Framework - inversion of control - plug and play
-* Ease change implementation of services
-* Share code between platform - platform independent
-* Fest tests - pure java, no framework related
+* Domain should be independent of framework (inversion of control
+* Share code between platform
+* Fest tests - pure java/kotlin, no framework related
 
 #### RxUseCase
-Use cases type can be one of reactive types
+Use case type is one of reactive types and may have parameter
   
-* Observable - Without/ParamUseCase
-* Single - Without/ParamUseCase
-* Maybe - Without/ParamUseCase
-* Completable - Without/ParamUseCase
-* Flowable - Without/ParamUseCase
+* Observable  
+* Single  
+* Maybe  
+* Completable  
+* Flowable
 
 #### With parameter
 
@@ -76,21 +79,19 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 
 #### RxError 
 
-What is missing in rx error system 
-
+How I want to improve Rx error system 
 
 1. Separation between expected and unexpected errors
-2. Pattern matching for error state with sealed classes
+2. Pattern matching for error state with kotlin sealed classes.
 3. I want the stream to stop only on unexpected and fatal errors, not in expected error    
 
 The solution is Either stream Observable<Either<Error, Data>>
 and Error is sealed class 
 The regular on error is for unexpected errors only 
-
  
 Some handy 
  
-Example
+##Example
 
 ###Creating use case  
 ```kotlin
