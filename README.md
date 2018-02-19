@@ -1,28 +1,26 @@
 # Domain layer design with RxJava, Kotlin and Kategory.
+ 
+#### This project is about what kotlin and RxJava can give us in context of modeling domain use cases and error system in clean architecture.
 
-
-#### Why Domain Driven Design - Clean Architecture?
-
-The project is not about clean architecture, its about what kotlin and RxJava 
-can give us in context of modeling use cases and error system  
-
-If you not familiar with clean architecture I recommend to start 
-with this great posts, 
+Its not an introduction or the basics of clean architecture 
+if you not familiar with clean architecture I recommend to start 
+with this great posts.
 
 1. https://github.com/android10/Android-CleanArchitecture
 2. http://five.agency/android-architecture-part-4-applying-clean-architecture-on-android-hands-on/
 
-Few points about the befits of CleanArchitecture (focus on domain layer)
+Lets remember of the befits of CleanArchitecture (focus on domain layer)
 
 * Keeping the code clean with single responsibly principle.
 * Isolation between layers: domain, data and presentation.
 * Domain should be independent of framework with inversion of control principle.
 * Since the domain is independent of framework it easy to share code between platform
 and allow tests run faster 
-#### RxUseCase
-Use case type is one of the reactive types and may have parameter.
+
+#### Modeling Use Cases With RxJava 
+Use case can be one of the reactive types and may have parameter.
   
-##### Rx Reactive types   
+##### Rx reactive types   
 * Observable  
 * Single  
 * Maybe  
@@ -73,7 +71,7 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 
 ...
 
-#### RxError 
+#### Modeling error system with Kotlin and Kategory  
 
 What are the improvement RxError bring to Rx error system 
 
