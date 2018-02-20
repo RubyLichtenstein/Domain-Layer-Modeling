@@ -183,7 +183,10 @@ private fun <T> Observable<T>.toFailure() = map { Failure(it) }
 ```
 
 #### Operations on either stream
+
 * Fold
+
+
 ```kotlin
 Observable.just<Either<Exception, String>>(Success("Hello"))
             .filter({ it.isRight() })
