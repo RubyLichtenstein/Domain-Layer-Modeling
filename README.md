@@ -16,14 +16,14 @@ Lets recap the basic concepts of Clean Architecture (focusing on domain layer)
 * Using the principle of Inversion of Control to make the domain independent from frameworks.
 
 Some of the benefits of this approach:
-* Since the domain is independent of framework it easy to share code between platform
-and allow tests run faster
+
+* Easy share code between platform
+* Fester tests
 *
-*
 
 
 
-### The project include simple domain layer with 4 use cases 
+### The project demonstrate simple domain layer with 4 use cases 
  
 * [login]()
 * [logout]()
