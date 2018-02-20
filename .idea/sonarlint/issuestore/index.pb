@@ -52,3 +52,14 @@ A
 Lapp/src/main/java/com/example/rl98880/cleanarchdomain/rxusecase/RxUseCase.kt,3/b/3b7a47bf69b603bfdf8bd50d8a50f72c55c8f6a4
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+g
+7app/src/main/java/com/example/rl98880/exmple/Example.kt,1/b/1b74cad0bb774f8ec6dd8a324383957e079a9ad6
+C
+CleanArchDomain.iml,3/4/34f73a72e4ffb0deb70de7485d1e48aacb2bc1b2
+:
+
+detekt.yml,c/d/cd6697219d3d54ad1a7ea36c7940721be32eb001
+X
+(gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
+ª
+zapp/build/generated/source/kaptKotlin/debug/instance/instance.com.example.rl98880.cleanarchdomain.ObservableSchInstance.kt,1/c/1ccce7b23361fb264445c332caf9040328626ddf

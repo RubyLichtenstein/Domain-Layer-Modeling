@@ -23,6 +23,13 @@ and allow tests run faster
 
 
 
+### The project include simple domain layer with 4 use cases 
+ 
+* [login]()
+* [logout]()
+* [getPosts]()
+* [likePost]()
+
 #### Modeling Use Cases With RxJava
 Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without a parameter.
   
@@ -139,12 +146,6 @@ class SomePresenter(val someUseCase: SomeUseCase) {
 }
 ```
 
-The project contains simple application with 4 use cases 
- 
-1. login 
-2. logout
-3. getPosts 
-4. likePost
 
 #### Either Stream
 ```kotlin

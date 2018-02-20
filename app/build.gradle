@@ -4,7 +4,30 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt' //optional
-apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optional
+//apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optional
+
+apply plugin: 'idea'
+
+idea {
+    module {
+//        sourceDirs += files(
+//                'build/generated/source/kapt/main',
+//                'build/generated/source/kapt/debug',
+//                'build/generated/source/kapt/release',
+//                'build/generated/source/kaptKotlin/main',
+//                'build/generated/source/kaptKotlin/debug',
+//                'build/generated/source/kaptKotlin/release',
+//                'build/tmp/kapt/main/kotlinGenerated')
+//        generatedSourceDirs += files(
+//                'build/generated/source/kapt/main',
+//                'build/generated/source/kapt/debug',
+//                'build/generated/source/kapt/release',
+//                'build/generated/source/kaptKotlin/main',
+//                'build/generated/source/kaptKotlin/debug',
+//                'build/generated/source/kaptKotlin/release',
+//                'build/tmp/kapt/main/kotlinGenerated')
+    }
+}
 //apply plugin: "io.gitlab.arturbosch.detekt-cli"
 //buildscript {
 //    dependencies {
@@ -12,7 +35,6 @@ apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optiona
 //
 //    }
 //}
-
 
 //apply plugin: 'org.junit.platform.gradle.plugin'
 
@@ -27,27 +49,53 @@ apply from: rootProject.file('gradle/generated-kotlin-sources.gradle') //optiona
 //    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC4-6"
 //}
 
-detekt {
-    profile = 'main'
-
-    profile('main') {
-        input = "$projectDir/src/main/java"
-        config = "$projectDir/detekt.yml"
-        filters = '.*test.*,.*/resources/.*,.*/tmp/.*'
-        output = "$projectDir/build/reports/detekt"
-    }
-
-    idea {
-        path = "$rootDir/.idea"
-        codeStyleScheme = "$rootDir/.idea/codeStyleSettings.xml"
-        inspectionsProfile = "$rootDir/.idea/inspectionProfiles/Squanchy.xml"
-        report = "$projectDir/build/reports/detekt-idea"
-        mask = "*.kt,"
-    }
-}
+//detekt {
+//    profile = 'main'
+//
+//    profile('main') {
+//        input = "$projectDir/src/main/java"
+//        config = "$projectDir/detekt.yml"
+//        filters = '.*test.*,.*/resources/.*,.*/tmp/.*'
+//        output = "$projectDir/build/reports/detekt"
+//    }
+//
+//    idea {
+//        path = "$rootDir/.idea"
+//        codeStyleScheme = "$rootDir/.idea/codeStyleSettings.xml"
+//        inspectionsProfile = "$rootDir/.idea/inspectionProfiles/Squanchy.xml"
+//        report = "$projectDir/build/reports/detekt-idea"
+//        mask = "*.kt,"
+//    }
+//}
 
 
 android {
+    sourceSets {
+
+//        main {
+//            res.srcDirs = ['resources/main']
+//        }
+        debug {
+            manifest.srcFile 'AndroidManifest.xml'
+
+            java.srcDirs += files(
+                    'build/generated/source/kapt/main',
+                    'build/generated/source/kapt/debug',
+                    'build/generated/source/kapt/release',
+                    'build/generated/source/kaptKotlin/main',
+                    'build/generated/source/kaptKotlin/debug',
+                    'build/generated/source/kaptKotlin/release',
+                    'build/tmp/kapt/main/kotlinGenerated')
+//            generatedS ourceDirs += files(
+//                    'build/generated/source/kapt/main',
+//                    'build/generated/source/kapt/debug',
+//                    'build/generated/source/kapt/release',
+//                    'build/generated/source/kaptKotlin/main',
+//                    'build/generated/source/kaptKotlin/debug',
+//                    'build/generated/source/kaptKotlin/release',
+//                    'build/tmp/kapt/main/kotlinGenerated')
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.rl98880.cleanarchdomain"
@@ -63,6 +111,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    kapt {
+        generateStubs = true
+    }
+
 }
 //plugins {
 //    id 'io.gitlab.arturbosch.detekt' version '1.0.0.RC6-3'
@@ -70,7 +122,7 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -84,7 +136,7 @@ dependencies {
     compile 'io.arrow-kt:arrow-instances:0.6.1'
     compile 'io.arrow-kt:arrow-data:0.6.1'
     compile 'io.arrow-kt:arrow-syntax:0.6.1'
-    kapt    'io.arrow-kt:arrow-annotations-processor:0.6.1'
+    kapt 'io.arrow-kt:arrow-annotations-processor:0.6.1'
 
     compile 'io.arrow-kt:arrow-free:0.6.1' //optional
     compile 'io.arrow-kt:arrow-mtl:0.6.1' //optional
