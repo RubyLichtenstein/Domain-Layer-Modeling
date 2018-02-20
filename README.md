@@ -1,4 +1,4 @@
-# Domain layer design with RxJava, Kotlin and Kategory.
+# Domain layer design with [RxJava](https://github.com/ReactiveX/RxJava), [Kotlin](https://kotlinlang.org) and [Arrow](https://github.com/arrow-kt/arrow).
  
 #### This project is about what kotlin and RxJava can give us in context of modeling domain use cases and error system in clean architecture approach.
 
