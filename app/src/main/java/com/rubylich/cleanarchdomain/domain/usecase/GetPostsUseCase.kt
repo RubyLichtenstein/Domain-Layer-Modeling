@@ -3,6 +3,8 @@ package com.rubylich.cleanarchdomain.domain.usecase
 import arrow.core.Either
 import com.rubylich.cleanarchdomain.domain.reposetory.PostRepository
 import com.rubylich.cleanarchdomain.domain.services.UserService
+import com.rubylich.cleanarchdomain.rxerror.Failure
+import com.rubylich.cleanarchdomain.rxerror.Success
 import com.rubylich.cleanarchdomain.rxusecase.ObservableWithoutParamUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler
