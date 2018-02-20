@@ -1,4 +1,4 @@
-# Domain layer design with [RxJava](https://github.com/ReactiveX/RxJava), [Kotlin](https://kotlinlang.org) and [Arrow](https://github.com/arrow-kt/arrow).
+## Domain layer design with [RxJava](https://github.com/ReactiveX/RxJava), [Kotlin](https://kotlinlang.org) and [Arrow](https://github.com/arrow-kt/arrow).
  
 #### This project is about what kotlin and RxJava can give us in context of modeling domain use cases and error system in clean architecture approach.
 
@@ -9,19 +9,19 @@ with these great posts.
 1. https://github.com/android10/Android-CleanArchitecture
 2. http://five.agency/android-architecture-part-4-applying-clean-architecture-on-android-hands-on/
 
-Lets recap the basic concepts of Clean Architecture (focusing on domain layer)
+##### Lets recap the basic concepts of Clean Architecture (focusing on domain layer)
 
 * Keeping the code clean with single responsibly principle.
 * Isolation between layers: domain, data and presentation.
 * Using the principle of Inversion of Control to make the domain independent from frameworks.
 
-Some of the benefits of this approach:
+##### Some of the benefits of this approach:
 
 * Easy change frameworks "Plug and play" 
 * Easy share code between platform
 * Fester tests
 
-### The project demonstrate simple domain layer with 4 use cases 
+#### The project demonstrate simple domain layer with 4 use cases 
  
 * [login](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/LoginUseCase.kt)
 * [logout](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/LogoutUseCase.kt)
@@ -38,7 +38,8 @@ Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without 
 * Completable
 * Flowable
 
-#### Examples 
+### Use case structure
+   
 ##### Use case with parameter
 
 T - the reactive type 
@@ -82,20 +83,20 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 
 ...
 
-#### Modeling error system with Kotlin and Kategory  
+### Modeling error system with Kotlin and [Arrow Either](http://arrow-kt.io/docs/datatypes/either/)  
 
-What are the improvement RxError bring to Rx error system 
+#### The improvement to Rx error system 
 
 1. Separation between expected and unexpected errors
 2. Pattern matching for error state with kotlin sealed classes.
-3. Keep the stream alive in expected (and not fatal) errors, stop  the stream only on unexpected and fatal errors.  
+3. Keep the stream alive in case of expected errors, stop the stream only on unexpected or fatal errors.
 
 
-RxError implementation is with (Kategory) Either stream Observable<Either<Error, Data>>
+Implementation is with Either stream Observable<Either<Error, Data>>
 while Error is sealed class 
 The regular Rx onError is for unexpected errors only 
   
-## Examples
+## Example
 
 ### Creating use case  
 ```kotlin
@@ -145,7 +146,7 @@ class SomePresenter(val someUseCase: SomeUseCase) {
 ```
 
 
-#### Either Stream
+#### Either Stream API
 ```kotlin
 typealias Success<A, B> = Either.Right<A, B>
 
