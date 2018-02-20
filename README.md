@@ -38,6 +38,9 @@ Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without 
 * Completable
 * Flowable
 
+### How to create use case 
+Use case compose from reactive type, parameter, data and error.
+
 ### Use case structure
    
 ##### With parameter
@@ -93,7 +96,8 @@ typealias FlowableWithoutParamUseCase<T> = UseCaseWithoutParam<Flowable<T>>
 typealias FlowableWithParamUseCase<T, in P> = UseCaseWithParam<Flowable<T>, P>
 ```
 
-## Example of observable with parameter use case
+## Use case example
+#### Observable with parameter
 
 ```kotlin
 class SomeUseCase :
@@ -154,35 +158,57 @@ class SomePresenter(val someUseCase: SomeUseCase) {
     private fun onUnexpectedError(e: Throwable): Nothing = TODO()
 }
 ```
-#### Use cases API
-TODO
 
-#### Either Stream API
 
 #### Creating either stream
-todo
+```kotlin
+class CreateEither {
+    fun toEither() {
+        Observable.just("Hello Either")
+            .toSuccess()
 
+        Observable.just<Either<String, String>>(Success("Hello Either"))
+            .onErrorReturnItem(Failure("sh*t"))
+
+        Observable.just<Either<Exception, String>>(Success("Hello"))
+            .filter({ it.isRight() })
+            .map { Failure(Exception()) } }
+    }
+}
+
+private fun <T> Observable<T>.toSuccess() = map { Success(it) }
+
+private fun <T> Observable<T>.toFailure() = map { Failure(it) }
+
+```
+
+#### Operations on either stream
+* Fold
+```kotlin
+Observable.just<Either<Exception, String>>(Success("Hello"))
+            .filter({ it.isRight() })
+            .map { Failure(Exception()) }
+            .fold({"on failure"},{"code on success"})
+
+```
 
 
 #### Consuming either stream
 ```kotlin
-interface EitherObserver<in L, in R> {
-    fun onNextSuccess(r: R)
-    fun onNextFailure(l: L)
-
-    fun onEither(either: Either<L, R>) {
-        either.fold(::onNextFailure, ::onNextSuccess)
-    }
-}
-
-interface EitherSingleObserver<in L, in R> {
-    fun onSuccess(r: R)
-    fun onFailure(l: L)
-
-    fun onEither(either: Either<L, R>) {
-        either.fold(::onFailure, ::onSuccess)
-    }
-}
+someUseCase
+    .execute(SomeUseCase.Param("Hello World!"))
+    .subscribe(object : ObservableEitherObserver<SomeUseCase.Error, SomeUseCase.Data> {
+        override fun onSubscribe(d: Disposable) = TODO()
+        override fun onComplete() = TODO()
+        override fun onError(e: Throwable) = onUnexpectedError(e)
+        override fun onNextSuccess(r: SomeUseCase.Data) = showData(r)
+        override fun onNextFailure(l: SomeUseCase.Error) = onFailure(
+            when (l) {
+                SomeUseCase.Error.ErrorA -> TODO()
+                SomeUseCase.Error.ErrorB -> TODO()
+            }
+        )
+    })
 ```
 
 
