@@ -40,7 +40,7 @@ Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without 
 
 ### Use case structure
    
-##### Use case with parameter
+##### With parameter
 
 T - the reactive type 
 
@@ -55,7 +55,7 @@ interface UseCaseWithParam<out T, in P> {
 }
 ```
 
-##### Use case without parameter
+##### Without parameter
 ```kotlin
 interface UseCaseWithoutParam<out T> {
 
@@ -92,9 +92,9 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 3. Keep the stream alive in case of expected errors, stop the stream only on unexpected or fatal errors.
 
 
-Implementation is with Either stream Observable<Either<Error, Data>>
+The implementation is with Either stream Observable<Either<Error, Data>>
 while Error is sealed class 
-The regular Rx onError is for unexpected errors only 
+and the regular Rx onError is for unexpected errors only 
   
 ## Example
 
