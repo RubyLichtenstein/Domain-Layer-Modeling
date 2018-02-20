@@ -130,7 +130,7 @@ class SomePresenter(val someUseCase: SomeUseCase) {
                 override fun onComplete() = TODO()
                 override fun onError(e: Throwable) = onUnexpectedError(e)
                 override fun onNextSuccess(r: SomeUseCase.Data) = showData(r)
-                override fun onNextFailure(l: SomeUseCase.Error) = onFailed(
+                override fun onNextFailure(l: SomeUseCase.Error) = onFailure(
                     when (l) {
                         SomeUseCase.Error.ErrorA -> TODO()
                         SomeUseCase.Error.ErrorB -> TODO()
@@ -139,7 +139,7 @@ class SomePresenter(val someUseCase: SomeUseCase) {
             })
     }
 
-    private fun onFailed(any: Any): Nothing = TODO()
+    private fun onFailure(any: Any): Nothing = TODO()
     private fun showData(data: SomeUseCase.Data): Nothing = TODO()
     private fun onUnexpectedError(e: Throwable): Nothing = TODO()
 }
