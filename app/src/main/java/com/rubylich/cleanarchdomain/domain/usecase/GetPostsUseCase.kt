@@ -3,8 +3,6 @@ package com.rubylich.cleanarchdomain.domain.usecase
 import arrow.core.Either
 import com.rubylich.cleanarchdomain.domain.reposetory.PostRepository
 import com.rubylich.cleanarchdomain.domain.services.UserService
-import com.rubylich.cleanarchdomain.rxerror.Failed
-import com.rubylich.cleanarchdomain.rxerror.Success
 import com.rubylich.cleanarchdomain.rxusecase.ObservableWithoutParamUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -28,7 +26,7 @@ class GetPostsUseCase(
         return userService.getToken()
             .flatMapObservable {
                 it.fold(
-                    { Observable.just(Failed(Error.NotValidToken)) },
+                    { Observable.just(Failure(Error.NotValidToken)) },
                     { getPosts(postRepository, it) }
                 )
             }
@@ -39,7 +37,7 @@ class GetPostsUseCase(
         return postRepository.getPosts(token)
             .map {
                 it.fold(
-                    { Failed(Error.PostNotFetched) },
+                    { Failure(Error.PostNotFetched) },
                     { Success(Data(it.id, it.text)) }
                 )
             }

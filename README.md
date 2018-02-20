@@ -130,7 +130,7 @@ class SomePresenter(val someUseCase: SomeUseCase) {
                 override fun onComplete() = TODO()
                 override fun onError(e: Throwable) = onUnexpectedError(e)
                 override fun onNextSuccess(r: SomeUseCase.Data) = showData(r)
-                override fun onNextFailed(l: SomeUseCase.Error) = onFailed(
+                override fun onNextFailure(l: SomeUseCase.Error) = onFailed(
                     when (l) {
                         SomeUseCase.Error.ErrorA -> TODO()
                         SomeUseCase.Error.ErrorB -> TODO()
@@ -150,25 +150,25 @@ class SomePresenter(val someUseCase: SomeUseCase) {
 ```kotlin
 typealias Success<A, B> = Either.Right<A, B>
 
-typealias Failed<A, B> = Either.Left<A, B>
+typealias Failure<A, B> = Either.Left<A, B>
 ```
 
 ```kotlin
 interface EitherObserver<in L, in R> {
     fun onNextSuccess(r: R)
-    fun onNextFailed(l: L)
+    fun onNextFailure(l: L)
 
     fun onEither(either: Either<L, R>) {
-        either.fold(::onNextFailed, ::onNextSuccess)
+        either.fold(::onNextFailure, ::onNextSuccess)
     }
 }
 
 interface EitherSingleObserver<in L, in R> {
     fun onSuccess(r: R)
-    fun onFailed(l: L)
+    fun onFailure(l: L)
 
     fun onEither(either: Either<L, R>) {
-        either.fold(::onFailed, ::onSuccess)
+        either.fold(::onFailure, ::onSuccess)
     }
 }
 ```

@@ -9,7 +9,7 @@ import io.reactivex.*
 
 typealias Success<A, B> = Either.Right<A, B>
 
-typealias Failed<A, B> = Either.Left<A, B>
+typealias Failure<A, B> = Either.Left<A, B>
 
 inline fun <A, B, C> Either<A, B>.fold1(
     crossinline failed: (A) -> C,
@@ -21,27 +21,28 @@ fun <T> Single<T>.toSuccess(): Single<Either<Nothing, T>> = this.map {
         it
     )
 }
-fun <T> Single<T>.toFailed(): Single<Either<T, Nothing>> = this.map {
-    Failed(
+
+fun <T> Single<T>.toFailure(): Single<Either<T, Nothing>> = this.map {
+    Failure(
         it
     )
 }
 
 interface EitherObserver<in L, in R> {
     fun onNextSuccess(r: R)
-    fun onNextFailed(l: L)
+    fun onNextFailure(l: L)
 
     fun onEither(either: Either<L, R>) {
-        either.fold(::onNextFailed, ::onNextSuccess)
+        either.fold(::onNextFailure, ::onNextSuccess)
     }
 }
 
 interface EitherSingleObserver<in L, in R> {
     fun onSuccess(r: R)
-    fun onFailed(l: L)
+    fun onFailure(l: L)
 
     fun onEither(either: Either<L, R>) {
-        either.fold(::onFailed, ::onSuccess)
+        either.fold(::onFailure, ::onSuccess)
     }
 }
 
