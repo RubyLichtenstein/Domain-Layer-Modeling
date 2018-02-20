@@ -78,27 +78,23 @@ typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
 ```
 
 #### Maybe
+```kotlin
+typealias MaybeWithoutParamUseCase<T> = UseCaseWithoutParam<Maybe<T>>
+typealias MaybeWithParamUseCase<T, in P> = UseCaseWithParam<Maybe<T>, P>
+```
 #### Completable
+```kotlin
+typealias CompletableWithoutParamUseCase = UseCaseWithoutParam<Completable>
+typealias CompletableWithParamUseCase<in P> = UseCaseWithParam<Completable, P>
+```
 #### Flowable
+```kotlin
+typealias FlowableWithoutParamUseCase<T> = UseCaseWithoutParam<Flowable<T>>
+typealias FlowableWithParamUseCase<T, in P> = UseCaseWithParam<Flowable<T>, P>
+```
 
-...
+## Example of observable with parameter use case
 
-### Modeling error system with Kotlin and [Arrow Either](http://arrow-kt.io/docs/datatypes/either/)  
-
-#### The improvement to Rx error system 
-
-1. Separation between expected and unexpected errors
-2. Pattern matching for error state with kotlin sealed classes.
-3. Keep the stream alive in case of expected errors, stop the stream only on unexpected or fatal errors.
-
-
-The implementation is with Either stream Observable<Either<Error, Data>>
-while Error is sealed class 
-and the regular Rx onError is for unexpected errors only 
-  
-## Example
-
-### Creating use case  
 ```kotlin
 class SomeUseCase :
     ObservableWithParamUseCase<Either<SomeUseCase.Error, SomeUseCase.Data>, SomeUseCase.Param>(
@@ -119,7 +115,21 @@ class SomeUseCase :
 }
 ```
 
-### Consuming use case 
+
+### Modeling error system with Kotlin and [Arrow Either](http://arrow-kt.io/docs/datatypes/either/)  
+
+#### The improvements to the regular rx error system 
+
+1. Separation between expected and unexpected errors
+2. Pattern matching for error state with kotlin sealed classes.
+3. Keep the stream alive in case of expected errors, stop the stream only on unexpected or fatal errors.
+
+
+The implementation is with Either stream Observable<Either<Error, Data>>
+while Error is sealed class 
+and the regular Rx onError is for unexpected errors only 
+
+### Consuming use case and handling expect and unexpected errors separately  
 ```kotlin
 class SomePresenter(val someUseCase: SomeUseCase) {
     fun some() {
@@ -144,15 +154,17 @@ class SomePresenter(val someUseCase: SomeUseCase) {
     private fun onUnexpectedError(e: Throwable): Nothing = TODO()
 }
 ```
-
+#### Use cases API
+TODO
 
 #### Either Stream API
-```kotlin
-typealias Success<A, B> = Either.Right<A, B>
 
-typealias Failure<A, B> = Either.Left<A, B>
-```
+#### Creating either stream
+todo
 
+
+
+#### Consuming either stream
 ```kotlin
 interface EitherObserver<in L, in R> {
     fun onNextSuccess(r: R)
