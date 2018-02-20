@@ -6,7 +6,6 @@ import com.rubylich.cleanarchdomain.domain.services.ValidationService
 import com.rubylich.cleanarchdomain.rxusecase.MaybeWithParamUseCase
 import io.reactivex.Maybe
 import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by rl98880 on 30/01/2018.
@@ -16,8 +15,8 @@ class LoginUseCase(
     private val authenticationService: AuthenticationService,
     private val validationService: ValidationService,
     private val userService: UserService,
-    threadExecutor: Scheduler = Schedulers.io(),
-    postExecutionThread: Scheduler = Schedulers.io()
+    threadExecutor: Scheduler,
+    postExecutionThread: Scheduler
 ) : MaybeWithParamUseCase<LoginUseCase.Error, LoginUseCase.Param>(
     threadExecutor,
     postExecutionThread

@@ -3,6 +3,8 @@ package com.rubylich.cleanarchdomain.domain.usecase
 import arrow.core.Either
 import com.rubylich.cleanarchdomain.domain.reposetory.PostRepository
 import com.rubylich.cleanarchdomain.domain.services.UserService
+import com.rubylich.cleanarchdomain.rxerror.Failed
+import com.rubylich.cleanarchdomain.rxerror.Success
 import com.rubylich.cleanarchdomain.rxusecase.ObservableWithoutParamUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -16,8 +18,8 @@ class GetPostsUseCase(
     threadExecutor: Scheduler,
     postExecutionThread: Scheduler
 ) : ObservableWithoutParamUseCase<Either<GetPostsUseCase.Error, GetPostsUseCase.Data>>(
-        threadExecutor,
-        postExecutionThread
+    threadExecutor,
+    postExecutionThread
 ) {
 
     override fun build()
@@ -26,10 +28,10 @@ class GetPostsUseCase(
         return userService.getToken()
             .flatMapObservable {
                 it.fold(
-                        { Observable.just(Failed(Error.NotValidToken)) },
-                        { getPosts(postRepository, it) }
+                    { Observable.just(Failed(Error.NotValidToken)) },
+                    { getPosts(postRepository, it) }
                 )
-            }.onErrorReturnItem(Failed(Error.Unknown))
+            }
     }
 
     private fun getPosts(postRepository: PostRepository, token: String)
@@ -37,13 +39,8 @@ class GetPostsUseCase(
         return postRepository.getPosts(token)
             .map {
                 it.fold(
-                        { Failed(Error.PostNotFetched) },
-                        { Success(
-                            Data(
-                                it.id,
-                                it.text
-                            )
-                        ) }
+                    { Failed(Error.PostNotFetched) },
+                    { Success(Data(it.id, it.text)) }
                 )
             }
     }

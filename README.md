@@ -17,11 +17,9 @@ Lets recap the basic concepts of Clean Architecture (focusing on domain layer)
 
 Some of the benefits of this approach:
 
+* Easy change frameworks "Plug and play" 
 * Easy share code between platform
 * Fester tests
-*
-
-
 
 ### The project demonstrate simple domain layer with 4 use cases 
  
@@ -33,7 +31,7 @@ Some of the benefits of this approach:
 #### Modeling Use Cases With RxJava
 Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without a parameter.
   
-##### Rx reactive types   
+##### Rx Reactive types   
 * Observable  
 * Single  
 * Maybe
