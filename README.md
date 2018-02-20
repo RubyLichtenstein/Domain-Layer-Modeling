@@ -6,8 +6,8 @@ It's intended for those already familiar with Clean Architecture approach.
 To familiarize yourself with the concept I recommend starting 
 with these great posts.
 
-1. https://github.com/android10/Android-CleanArchitecture
-2. http://five.agency/android-architecture-part-4-applying-clean-architecture-on-android-hands-on/
+1. [Android-CleanArchitecture](https://github.com/android10/Android-CleanArchitecture)
+2. [applying-clean-architecture-on-android-hands-on](http://five.agency/android-architecture-part-4-applying-clean-architecture-on-android-hands-on/)
 
 ##### Lets recap the basic concepts of Clean Architecture (focusing on domain layer)
 
