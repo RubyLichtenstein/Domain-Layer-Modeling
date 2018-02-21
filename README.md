@@ -1,4 +1,6 @@
-## Domain layer design with [RxJava](https://github.com/ReactiveX/RxJava), [Kotlin](https://kotlinlang.org) and [Arrow](https://github.com/arrow-kt/arrow).
+## Domain layer design with [RxJava](https://github.com/ReactiveX/RxJava), [Kotlin](https://kotlinlang.org) and [Arrow](https://github.com/arrow-kt/arrow). 
+
+### [Website](https://rubylichtenstein.github.io/Domain-Layer-Modeling/)
  
 #### This project is about what kotlin and RxJava can give us in context of modeling domain use cases and error system in clean architecture approach.
 
