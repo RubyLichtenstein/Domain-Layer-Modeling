@@ -48,7 +48,7 @@ Use case composed from
 
 ##### With parameter
 
-T - the reactive type 
+T - reactive type 
 
 P - parameter type 
 
@@ -72,7 +72,8 @@ interface UseCaseWithoutParam<out T> {
 ```
 ## Use case examples
 
-#### Login use case 
+#### [Login use case](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/LoginUseCase.kt)
+
 ##### Use case type: Maybe with parameter, with error and without data 
 ```kotlin
 class LoginUseCase(
@@ -103,7 +104,8 @@ class LoginUseCase(
 
 }
 ```
-#### Get posts use case 
+#### [Get posts use case](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/GetPostsUseCase.kt)
+
 ##### Use case type: Observable without parameter with data and error
 ```kotlin
 class GetPostsUseCase(
