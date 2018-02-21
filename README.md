@@ -1,4 +1,4 @@
-## &middot; <img src="https://github.com/RubyLichtenstein/RxTest/blob/master/art/kotlin_logo.png" alt="kotlin-logo" height="28" width="28"> &middot; <img src="https://github.com/RubyLichtenstein/RxTest/blob/master/art/rx_logo.png" alt="rx-logo" height="34" width="34"> &middot; Domain layer modeling with [Kotlin](https://kotlinlang.org), [RxJava](https://github.com/ReactiveX/RxJava) and [Arrow](https://github.com/arrow-kt/arrow). 
+# Domain layer modeling with [Kotlin](https://kotlinlang.org), [RxJava](https://github.com/ReactiveX/RxJava) and [Arrow](https://github.com/arrow-kt/arrow). 
 
 ### [Website](https://rubylichtenstein.github.io/Domain-Layer-Modeling/)
  
