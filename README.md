@@ -28,6 +28,9 @@ with these great posts.
 * [getPosts](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/GetPostsUseCase.kt)
 * [likePost](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/LikePostUseCase.kt)
 
+
+
+##Now let's dive in 
 #### Modeling Use Cases With RxJava
 Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without a parameter.
   
