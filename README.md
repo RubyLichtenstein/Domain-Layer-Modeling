@@ -30,7 +30,8 @@ with these great posts.
 
 
 
-##Now let's dive in 
+## Let's dive in 
+
 #### Modeling Use Cases With RxJava
 Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without a parameter.
   
@@ -44,7 +45,7 @@ Use case composed from
 4. Parameter (Optional)
 
 ### Basic use case structure
-   
+
 ##### With parameter
 
 T - the reactive type 
@@ -71,57 +72,66 @@ interface UseCaseWithoutParam<out T> {
 ```
 ### For each reactive type use case will look like: 
 
-#### Observable
-```kotlin
-typealias ObservableWithoutParamUseCase<T> = UseCaseWithoutParam<Observable<T>>
-typealias ObservableWithParamUseCase<T, in P> = UseCaseWithParam<Observable<T>, P>
-```
+## Use cases for example
 
-#### Single
+#### Login use case 
+##### Maybe with parameter
 ```kotlin
-typealias SingleWithoutParamUseCase<T> = UseCaseWithoutParam<Single<T>>
-typealias SingleWithParamUseCase<T, in P> = UseCaseWithParam<Single<T>, P>
-```
+class LoginUseCase(
+    private val authenticationService: AuthenticationService,
+    private val validationService: ValidationService,
+    private val userService: UserService,
+    threadExecutor: Scheduler,
+    postExecutionThread: Scheduler
+) : MaybeWithParamUseCase<LoginUseCase.Error, LoginUseCase.Param>(
+    threadExecutor,
+    postExecutionThread
+) {
 
-#### Maybe
-```kotlin
-typealias MaybeWithoutParamUseCase<T> = UseCaseWithoutParam<Maybe<T>>
-typealias MaybeWithParamUseCase<T, in P> = UseCaseWithParam<Maybe<T>, P>
-```
-#### Completable
-```kotlin
-typealias CompletableWithoutParamUseCase = UseCaseWithoutParam<Completable>
-typealias CompletableWithParamUseCase<in P> = UseCaseWithParam<Completable, P>
-```
-#### Flowable
-```kotlin
-typealias FlowableWithoutParamUseCase<T> = UseCaseWithoutParam<Flowable<T>>
-typealias FlowableWithParamUseCase<T, in P> = UseCaseWithParam<Flowable<T>, P>
-```
-
-## Use case example
-#### Observable of either data or error and parameter 
-
-```kotlin
-class SomeUseCase :
-    ObservableWithParamUseCase<Either<SomeUseCase.Error, SomeUseCase.Data>, SomeUseCase.Param>(
-        threadExecutor = TODO(),
-        postExecutionThread = TODO()
-    ) {
-
-    override fun build(param: Param): Observable<Either<Error, Data>> {
-        TODO()
+    override fun build(param: Param)
+            : Maybe<Error> {
+        //implementation
     }
 
-    data class Param(val hello: String)
-    data class Data(val world: String)
+    data class Param(val email: String, val password: String)
+
     sealed class Error {
-        object ErrorA : Error()
-        object ErrorB : Error()
+        object InvalidEmail : Error()
+        object InvalidPassword : Error()
+        object EmailNotExist : Error()
+        object WrongPassword : Error()
+        object NoNetwork : Error()
     }
+
 }
 ```
+#### Get posts use case 
+##### Observable without parameter
+```kotlin
+class GetPostsUseCase(
+    private val postRepository: PostRepository,
+    private val userService: UserService,
+    threadExecutor: Scheduler,
+    postExecutionThread: Scheduler
+) : ObservableWithoutParamUseCase<Either<GetPostsUseCase.Error, GetPostsUseCase.Data>>(
+    threadExecutor,
+    postExecutionThread
+) {
 
+    override fun build()
+            : Observable<Either<Error, Data>> {
+            //implementation
+    }
+
+    sealed class Error {
+        object NoNetwork : Error()
+        object UserNotLogin : Error()
+        object PostNotFound : Error()
+    }
+
+    data class Data(val id: String, var text: String)
+}
+```
 
 ### Modeling error system with Kotlin and [Arrow Either](http://arrow-kt.io/docs/datatypes/either/)  
 
@@ -154,11 +164,9 @@ class CreateEither {
 2. Converting regular stream to Either stream with this handy extension functions 
 
 ```kotlin
-
 private fun <T> Observable<T>.toSuccess() = map { Success(it) }
 
 private fun <T> Observable<T>.toFailure() = map { Failure(it) }
-
 ```
 ```kotlin
 class CreateEither {

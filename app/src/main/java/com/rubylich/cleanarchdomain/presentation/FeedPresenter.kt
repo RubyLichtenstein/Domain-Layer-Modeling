@@ -31,9 +31,9 @@ class FeedPresenter(
 
                 override fun onNextFailure(l: GetPostsUseCase.Error) {
                     val error = when (l) {
-                        GetPostsUseCase.Error.Unknown        -> TODO()
-                        GetPostsUseCase.Error.NotValidToken  -> TODO()
-                        GetPostsUseCase.Error.PostNotFetched -> TODO()
+                        GetPostsUseCase.Error.Unknown       -> TODO()
+                        GetPostsUseCase.Error.NotValidToken -> TODO()
+                        GetPostsUseCase.Error.PostNotFound  -> TODO()
                     }
                     showFetchPostError()
                 }

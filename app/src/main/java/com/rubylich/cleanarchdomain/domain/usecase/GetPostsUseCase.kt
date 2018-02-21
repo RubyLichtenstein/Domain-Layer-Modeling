@@ -28,7 +28,7 @@ class GetPostsUseCase(
         return userService.getToken()
             .flatMapObservable {
                 it.fold(
-                    { Observable.just(Failure(Error.NotValidToken)) },
+                    { Observable.just(Failure(Error.UserNotLogin)) },
                     { getPosts(postRepository, it) }
                 )
             }
@@ -39,16 +39,16 @@ class GetPostsUseCase(
         return postRepository.getPosts(token)
             .map {
                 it.fold(
-                    { Failure(Error.PostNotFetched) },
+                    { Failure(Error.PostNotFound) },
                     { Success(Data(it.id, it.text)) }
                 )
             }
     }
 
     sealed class Error {
-        object Unknown : Error()
-        object NotValidToken : Error()
-        object PostNotFetched : Error()
+        object NoNetwork : Error()
+        object UserNotLogin : Error()
+        object PostNotFound : Error()
     }
 
     data class Data(val id: String, var text: String)
