@@ -144,10 +144,10 @@ class GetPostsUseCase(
 3. Keep the stream alive in case of expected errors, stop the stream only on unexpected or fatal errors.
 
 
-The implementation is with Either stream Observable<Either<Error, Data>>
-while Error is sealed class 
-and the regular Rx onError is for unexpected errors only 
+The implementation is with either stream `Observable<Either<Error, Data>>`
+and since error is sealed class we can do pattern matching on it.
 
+The regular rx on error used for unexpected errors only.
 
 #### Creating either stream
 
