@@ -31,17 +31,16 @@ with these great posts.
 #### Modeling Use Cases With RxJava
 Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without a parameter.
   
-##### Rx Reactive types   
-* Observable  
-* Single  
-* Maybe
-* Completable
-* Flowable
 
 ### How to create use case 
-Use case compose from reactive type, parameter, data and error.
+Use case composed from
+ 
+1. Reactive type - (Observable/Flowable/Single/Maybe/Completable)
+2. Data (Optional) - The data witch use case will emit  
+3. Error (Optional) - Expected use case error and will be sealed class
+4. Parameter (Optional)
 
-### Use case structure
+### Basic use case structure
    
 ##### With parameter
 
@@ -67,6 +66,7 @@ interface UseCaseWithoutParam<out T> {
     fun execute(): T
 }
 ```
+### For each reactive type use case will look like: 
 
 #### Observable
 ```kotlin
@@ -97,7 +97,7 @@ typealias FlowableWithParamUseCase<T, in P> = UseCaseWithParam<Flowable<T>, P>
 ```
 
 ## Use case example
-#### Observable with parameter
+#### Observable of either data or error and parameter 
 
 ```kotlin
 class SomeUseCase :
@@ -133,7 +133,72 @@ The implementation is with Either stream Observable<Either<Error, Data>>
 while Error is sealed class 
 and the regular Rx onError is for unexpected errors only 
 
-### Consuming use case and handling expect and unexpected errors separately  
+
+#### Creating either stream
+
+You can create Either stream in one of the following ways  
+
+1. Defining Either observable 
+```kotlin
+class CreateEither {
+    fun create() {
+      Observable.just<Either<Exception, String>>(Success("Hello"))
+                .subscribe()
+    }
+}        
+```
+
+2. Converting regular stream to Either stream with this handy extension functions 
+
+```kotlin
+
+private fun <T> Observable<T>.toSuccess() = map { Success(it) }
+
+private fun <T> Observable<T>.toFailure() = map { Failure(it) }
+
+```
+```kotlin
+class CreateEither {
+    fun toEither() {
+        Observable.just("Hello Either")
+            .toSuccess() 
+        
+        Observable.just("Hello Either")
+            .toFailure()
+  
+    }
+}
+```
+
+#### Operating on either stream
+
+* Fold - applies `sucsess` block if this is a Success or `failure` if this is a Failure.
+
+```kotlin
+Observable.just<Either<Exception, String>>(Success("Hello"))
+            .filter({ it.isRight() })
+            .map { Failure(Exception()) }
+            .fold({"on failure"},{"on success"})
+```
+
+#### Consuming either stream
+```kotlin
+someUseCase
+    .execute(SomeUseCase.Param("Hello World!"))
+    .subscribe(object : ObservableEitherObserver<SomeUseCase.Error, SomeUseCase.Data> {
+        override fun onSubscribe(d: Disposable) = TODO()
+        override fun onComplete() = TODO()
+        override fun onError(e: Throwable) = onUnexpectedError(e)
+        override fun onNextSuccess(r: SomeUseCase.Data) = showData(r)
+        override fun onNextFailure(l: SomeUseCase.Error) = onFailure(
+            when (l) {
+                SomeUseCase.Error.ErrorA -> TODO()
+                SomeUseCase.Error.ErrorB -> TODO()
+            }
+        )
+    })
+```
+### Example of consuming use case and handling expect and unexpected errors separately  
 ```kotlin
 class SomePresenter(val someUseCase: SomeUseCase) {
     fun some() {
@@ -159,59 +224,5 @@ class SomePresenter(val someUseCase: SomeUseCase) {
 }
 ```
 
-
-#### Creating either stream
-```kotlin
-class CreateEither {
-    fun toEither() {
-        Observable.just("Hello Either")
-            .toSuccess()
-
-        Observable.just<Either<String, String>>(Success("Hello Either"))
-            .onErrorReturnItem(Failure("sh*t"))
-
-        Observable.just<Either<Exception, String>>(Success("Hello"))
-            .filter({ it.isRight() })
-            .map { Failure(Exception()) } }
-    }
-}
-
-private fun <T> Observable<T>.toSuccess() = map { Success(it) }
-
-private fun <T> Observable<T>.toFailure() = map { Failure(it) }
-
-```
-
-#### Operations on either stream
-
-* Fold
-
-
-```kotlin
-Observable.just<Either<Exception, String>>(Success("Hello"))
-            .filter({ it.isRight() })
-            .map { Failure(Exception()) }
-            .fold({"on failure"},{"code on success"})
-
-```
-
-
-#### Consuming either stream
-```kotlin
-someUseCase
-    .execute(SomeUseCase.Param("Hello World!"))
-    .subscribe(object : ObservableEitherObserver<SomeUseCase.Error, SomeUseCase.Data> {
-        override fun onSubscribe(d: Disposable) = TODO()
-        override fun onComplete() = TODO()
-        override fun onError(e: Throwable) = onUnexpectedError(e)
-        override fun onNextSuccess(r: SomeUseCase.Data) = showData(r)
-        override fun onNextFailure(l: SomeUseCase.Error) = onFailure(
-            when (l) {
-                SomeUseCase.Error.ErrorA -> TODO()
-                SomeUseCase.Error.ErrorB -> TODO()
-            }
-        )
-    })
-```
 
 
