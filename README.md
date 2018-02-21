@@ -1,4 +1,4 @@
-## Domain layer design with [RxJava](https://github.com/ReactiveX/RxJava), [Kotlin](https://kotlinlang.org) and [Arrow](https://github.com/arrow-kt/arrow). 
+## Domain layer modeling with [Kotlin](https://kotlinlang.org), [RxJava](https://github.com/ReactiveX/RxJava) and [Arrow](https://github.com/arrow-kt/arrow). 
 
 ### [Website](https://rubylichtenstein.github.io/Domain-Layer-Modeling/)
  
