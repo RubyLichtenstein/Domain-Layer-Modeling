@@ -39,7 +39,7 @@ Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without 
 Use case composed from
  
 1. Reactive type - (Observable/Flowable/Single/Maybe/Completable)
-2. Data (Optional) - The data witch use case will emit  
+2. Data (Optional) - The data which use case will emit  
 3. Error (Optional) - Expected use case error and will be sealed class
 4. Parameter (Optional)
 
