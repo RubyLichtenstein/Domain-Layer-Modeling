@@ -17,7 +17,7 @@ with these great posts.
 
 ##### Some of the benefits of this approach:
 
-* Easy change frameworks "Plug and play" 
+* Easy change frameworks "Plug and Play" 
 * Easy share code between platform
 * Fester tests
 
@@ -70,12 +70,10 @@ interface UseCaseWithoutParam<out T> {
     fun execute(): T
 }
 ```
-### For each reactive type use case will look like: 
-
-## Use cases for example
+## Use case examples
 
 #### Login use case 
-##### Maybe with parameter
+##### Use case type: Maybe with parameter, with error and without data 
 ```kotlin
 class LoginUseCase(
     private val authenticationService: AuthenticationService,
@@ -106,7 +104,7 @@ class LoginUseCase(
 }
 ```
 #### Get posts use case 
-##### Observable without parameter
+##### Use case type: Observable without parameter with data and error
 ```kotlin
 class GetPostsUseCase(
     private val postRepository: PostRepository,
@@ -161,7 +159,7 @@ class CreateEither {
 }        
 ```
 
-2. Converting regular stream to Either stream with this handy extension functions 
+2. Converting regular stream to either stream with toSuccess/toFailure 
 
 ```kotlin
 private fun <T> Observable<T>.toSuccess() = map { Success(it) }
@@ -183,7 +181,7 @@ class CreateEither {
 
 #### Operating on either stream
 
-* Fold - applies `sucsess` block if this is a Success or `failure` if this is a Failure.
+* Fold - applies `success` block if this is a Success or `failure` if this is a Failure.
 
 ```kotlin
 Observable.just<Either<Exception, String>>(Success("Hello"))
