@@ -1,27 +1,28 @@
-## Domain layer modeling with [Kotlin](https://kotlinlang.org), [RxJava](https://github.com/ReactiveX/RxJava) and [Arrow](https://github.com/arrow-kt/arrow). 
+## Clean Architecture Domain layer modeling with [Kotlin](https://kotlinlang.org), [RxJava](https://github.com/ReactiveX/RxJava) and [Arrow](https://github.com/arrow-kt/arrow). 
 
 ### [Website](https://rubylichtenstein.github.io/Domain-Layer-Modeling/)
  
-#### This project is about what kotlin and RxJava can give us in context of modeling domain use cases and error system in clean architecture approach.
+#### The project it's all about modeling domain use cases and domain error system with kotlin and RxJava.
 
-It's intended for those already familiar with Clean Architecture approach. 
+It's intended for those how wre already familiar with Clean Architecture approach. 
+
 To familiarize yourself with the concept I recommend starting 
 with these great posts.
 
 1. [Android-CleanArchitecture](https://github.com/android10/Android-CleanArchitecture)
 2. [applying-clean-architecture-on-android-hands-on](http://five.agency/android-architecture-part-4-applying-clean-architecture-on-android-hands-on/)
 
-##### Lets recap the basic concepts of Clean Architecture (focusing on domain layer)
+##### Lets recap the basic concepts of Clean Architecture
 
 * Keeping the code clean with single responsibly principle.
 * Isolation between layers: domain, data and presentation.
-* Using the principle of Inversion of Control to make the domain independent from frameworks.
+* Domain layer is writen in pure java or kotlin and with Inversion of Control principle domain is  framework independent.
 
-##### Some of the benefits of this approach:
+##### The benefits of pure java domain layer:
 
-* Easy change frameworks "Plug and Play" 
-* Easy share code between platform
-* Fester tests
+* Easy change frameworks (implementations), depend on abstraction and not on implementation.
+* Easy share code between platform, since the domain is framework independent and based on abstraction.
+* Fester tests, since the domain layer is pure java. 
 
 #### The project demonstrate simple domain layer with 4 use cases 
  
@@ -32,7 +33,7 @@ with these great posts.
 
 
 
-## Let's dive in 
+## Now, let's dive in to Use Cases structure 
 
 #### Modeling Use Cases With RxJava
 Utilizing Reactive types, we'll demonstrate a Use Case Object, with and without a parameter.
@@ -76,7 +77,12 @@ interface UseCaseWithoutParam<out T> {
 
 #### [Login use case](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/LoginUseCase.kt)
 
-##### Use case type: Maybe with parameter, with error and without data 
+##### Use case 
+Reactive type: Maybe 
+Parameter :white_check_mark:
+Error :white_check_mark:
+Data :x:
+
 ```kotlin
 class LoginUseCase(
     private val authenticationService: AuthenticationService,
