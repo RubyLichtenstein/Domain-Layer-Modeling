@@ -77,11 +77,13 @@ interface UseCaseWithoutParam<out T> {
 
 #### [Login use case](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/LoginUseCase.kt)
 
-##### Use case 
 Reactive type: Maybe 
-Parameter :white_check_mark:
-Error :white_check_mark:
-Data :x:
+
+:white_check_mark: Parameter 
+
+:white_check_mark: Error
+
+:x: Data 
 
 ```kotlin
 class LoginUseCase(
@@ -114,7 +116,16 @@ class LoginUseCase(
 ```
 #### [Get posts use case](https://github.com/RubyLichtenstein/Domain-Layer-Modeling/blob/master/app/src/main/java/com/rubylich/cleanarchdomain/domain/usecase/GetPostsUseCase.kt)
 
-##### Use case type: Observable without parameter with data and error
+##### Use case type:
+
+Reactive type: Observable 
+
+:x: Parameter 
+
+:white_check_mark: Error
+
+:white_check_mark: Data 
+
 ```kotlin
 class GetPostsUseCase(
     private val postRepository: PostRepository,
@@ -141,7 +152,7 @@ class GetPostsUseCase(
 }
 ```
 
-### Modeling error system with Kotlin and [Arrow Either](http://arrow-kt.io/docs/datatypes/either/)  
+### Modeling domain error system with Kotlin and [Arrow Either](http://arrow-kt.io/docs/datatypes/either/)  
 
 #### The improvements to the regular rx error system 
 
